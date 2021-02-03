@@ -33,6 +33,27 @@ class ApplicationService:
             appDto = ApplicationDto.createFromEntity(app)
             return GenericResponseDto.createResponse(ResponseMessage.OK, ResponseCode.OK, appDto.getJson())
 
+
+    @staticmethod
+    def findAppByToken(token):
+        app = DBUtil.findByToken(Application, token)
+        return app
+
+    @staticmethod
+    def findAppById(id):
+        app = DBUtil.findById(Application, id)
+        return app
+
+
+    @staticmethod
+    def getAppByToken(token):
+        app = ApplicationService.findAppByToken(token)
+        if app is None:
+            return GenericResponseDto.createResponse(ResponseMessage.NOT_FOUND, ResponseCode.NOT_FOUND, None)
+        else:
+            appDto = ApplicationDto.createFromEntity(app)
+            return GenericResponseDto.createResponse(ResponseMessage.OK, ResponseCode.OK, appDto.getJson())
+
     @staticmethod
     def appNameExists(name):
         app = ApplicationService.findAppByName(name)

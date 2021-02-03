@@ -13,10 +13,12 @@ class DBUtil:
             db.session.add(model)
             db.session.commit()
             print("Query executed successfuly!")
+            return True, model
         except Exception as e:
             db.session.rollback()
             print("Query rollbacked!")
             print(e)
+            return False, str(e)
 
 
     @staticmethod
@@ -51,4 +53,10 @@ class DBUtil:
     @staticmethod
     def findByName(clazz, name):
         entity = clazz.query.filter_by(name=name).one_or_none()
+        return entity
+
+
+    @staticmethod
+    def findByToken(clazz, token):
+        entity = clazz.query.filter_by(token=token).one_or_none()
         return entity

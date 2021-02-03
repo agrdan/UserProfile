@@ -6,6 +6,7 @@ class ApplicationDto:
     def __init__(self):
         self.id = None
         self.name = None
+        self.token = None
         self.created = None
 
     @staticmethod
@@ -14,6 +15,7 @@ class ApplicationDto:
         appDto.id = app.id
         appDto.name = app.name
         appDto.created = app.created
+        appDto.token = app.token
         return appDto
 
 
@@ -21,6 +23,7 @@ class ApplicationDto:
         application = {
             'id': self.id,
             'name': self.name,
-            'created': self.created
+            'created': self.created,
+            'token': self.token
         }
-        return json.dumps(application)
+        return application

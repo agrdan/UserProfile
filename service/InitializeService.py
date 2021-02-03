@@ -24,9 +24,10 @@ class InitializeService:
         type_superadmin = UserType()
         type_superadmin.type = 3
         type_superadmin.name = 'SUPERADMIN'
-        """
         cl.add_params('user_type-1', type_admin, type_normal)
         cl.add_params('user_type-2', type_superadmin)
+        """
+        
         brada = User().create("agrdan", "!Lunarstrain123!", "Andreas", "Grđan", 1)
         print(brada)
 
