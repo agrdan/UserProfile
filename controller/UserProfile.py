@@ -4,27 +4,6 @@ from service.UserService import UserService
 
 users = Blueprint('users', __name__)
 
-@users.route('/create-application', methods=['POST'])
-def createApplication():
-    if request.method == 'POST':
-        name = request.args['appName']
-        return ApplicationService.createApplication(name)
-
-
-
-@users.route('/application/<string:name>', methods=['GET'])
-def getApplication(name):
-    if request.method == 'GET':
-        return ApplicationService.getAppByName(name)
-
-
-@users.route('/token', methods=['GET'])
-def getApplicationByToken():
-    if request.method == 'GET':
-        token = request.args['token']
-        return ApplicationService.getAppByToken(token)
-
-
 
 @users.route('/registration', methods=['POST'])
 def userRegistration():
@@ -33,6 +12,31 @@ def userRegistration():
         return UserService.create(user)
 
 
+@users.route('/update/<id>', methods=['PUT'])
+def updateUser(id):
+    token = request.headers.get('auth-token')
+    status, response = UserService.updateUser(token, id, request.json)
+    return response
+
+
+@users.route('/users', methods=['GET'])
+def getAllUsers():
+    token = request.headers.get('auth-token')
+    status, response = UserService.getAllUsers(token)
+    return response
+
+@users.route('/users/<id>', methods=['GET'])
+def getUserByID(id):
+    token = request.headers.get('auth-token')
+    status, response = UserService.getUserById(token, id)
+    return response
+
+@users.route('/password-change/<id>', methods=['PATCH'])
+def changeUserPassword(id):
+    token = request.headers.get('auth-token')
+    password = request.args.get('password')
+    status, response = UserService.changeUserPasword(token, id, password)
+    return response
 
 @users.route('/login', methods=['POST'])
 def login():

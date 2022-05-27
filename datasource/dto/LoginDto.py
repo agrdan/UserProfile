@@ -6,5 +6,11 @@ class LoginDto(JSONSerializator):
     def __init__(self):
         self.username = None
         self.password = None
-        self.appId = None
-        self.token = None
+
+
+    def __repr__(self):
+        loginJson = {
+            'username': self.username,
+            'password': self.password
+        }
+        return loginJson

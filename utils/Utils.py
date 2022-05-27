@@ -17,5 +17,17 @@ class Utils:
     @staticmethod
     def parseTimestamp(timestamp):
         date = dt.fromtimestamp(int(timestamp))
-        parsedDate = date.strftime("%Y-%m-%d")
+        parsedDate = date.strftime("%m/%d/%Y, %H:%M:%S")
         return parsedDate
+
+
+    @staticmethod
+    def getCurrentTimestamp():
+        return str(int(dt.now().timestamp()))
+
+    @staticmethod
+    def timestapsDiff(timestampOld):
+        oldtime = dt.fromtimestamp(int(timestampOld))
+        currentTime = dt.fromtimestamp(int(dt.now().timestamp()))
+        diff = currentTime - oldtime
+        return diff

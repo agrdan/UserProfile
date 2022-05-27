@@ -32,6 +32,12 @@ class DBUtil:
         entity = clazz.query.filter_by(id=id).one_or_none()
         return entity
 
+    @staticmethod
+    def commit():
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
 
     @staticmethod
     def delete(model):
@@ -59,4 +65,9 @@ class DBUtil:
     @staticmethod
     def findByToken(clazz, token):
         entity = clazz.query.filter_by(token=token).one_or_none()
+        return entity
+
+    @staticmethod
+    def findTokenByUserID(clazz, userId):
+        entity = clazz.query.filter_by(user_id=userId).one_or_none()
         return entity

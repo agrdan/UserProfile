@@ -4,17 +4,17 @@ from utils.JSONSerializator import JSONSerializator
 
 class Config(JSONSerializator):
 
-    SQLALCHEMY_DATABASE_URI = None
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///users.sqlite3'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SECRET_KEY = None
+    SECRET_KEY = "ad908fa1243151zu3i4g2uzi34g6"
 
     def __init__(self):
-
-        self.appName = None
-        self.endpoint = None
-        self.connectionUrl = None
-        self.readBaseConfig()
-        self.readRemoteConfiguration()
+        pass
+        # self.appName = None
+        # self.endpoint = None
+        # self.connectionUrl = None
+        #self.readBaseConfig()
+        #self.readRemoteConfiguration()
 
 
     def readBaseConfig(self):
