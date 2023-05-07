@@ -1,0 +1,4 @@
+{
+    "dbUri": "mysql+pymysql://brada:Brada123!@localhost:3306/user_profile",
+    "secretKey": "as9d7fas09d7fa09s7dfa9s0df7as09df7"
+}
