@@ -1,6 +1,7 @@
 from flask import flash
 from datasource.entity.User import User
 from datasource.dto.UserDto import UserDto
+from datasource.entity.UserType import UserTypes
 from utils.DBUtil import DBUtil
 from main import db
 from datetime import datetime as dt
@@ -8,6 +9,7 @@ from utils.JSONSerializator import JSONSerializator
 from datasource.dto.GenericResponseDto import GenericResponseDto, ResponseMessage, ResponseCode
 from datasource.dto.LoginDto import LoginDto
 from service.ApplicationService import ApplicationService
+import json
 
 now = dt.now()
 year = now.year
@@ -28,10 +30,12 @@ class UserService:
         if user is not None:
             return GenericResponseDto.createResponse(ResponseMessage.FORBIDDEN, ResponseCode.FORBIDDEN, "Username already exists!")
 
+        """
         app = ApplicationService.findAppById(userSerialized.appId)
         if app is None:
             return GenericResponseDto.createResponse(ResponseMessage.NOT_FOUND,
-                                                     ResponseCode.NOT_FOUND, "Application with ID=[{}] not found!".format(userSerialized.appId))
+                                                  ResponseCode.NOT_FOUND, "Application with ID=[{}] not found!".format(userSerialized.appId))
+        """
         user = UserService.mapUser(userSerialized)
         status, data = DBUtil.insert(user)
         if not status:
@@ -44,10 +48,8 @@ class UserService:
     @staticmethod
     def mapUser(serialized):
         user = User.create(serialized.username, serialized.password, serialized.name,
-                           serialized.surname, serialized.type, serialized.appId,
-                           serialized.email, serialized.address, serialized.zip,
-                           serialized.city, serialized.country, serialized.mobile,
-                           serialized.image)
+                           serialized.surname, UserTypes.USER.value, 
+                           serialized.email)
         return user
 
 
@@ -72,8 +74,12 @@ class UserService:
 
     @staticmethod
     def getAllUsers():
-        return DBUtil.findAll(User)
-
+        result = DBUtil.findAll(User)
+        userList = []
+        for u in result:
+            user: UserDto = UserDto.createFromEntity(u)
+            userList.append(user.getJson())
+        return GenericResponseDto.createResponse(ResponseMessage.OK, ResponseCode.OK, userList)
 
     @staticmethod
     def getUserById(id):
@@ -114,6 +120,7 @@ class UserService:
             return False, GenericResponseDto.createResponse(ResponseMessage.NOT_FOUND, ResponseCode.NOT_FOUND, "User not found!")
         else:
             if loginDto.password == user.pwd:
+                """
                 app = ApplicationService.findAppByToken(loginDto.token)
                 if app is None:
                     return False, GenericResponseDto.createResponse(ResponseMessage.NOT_FOUND,
@@ -125,6 +132,9 @@ class UserService:
                 else:
                     return False, GenericResponseDto.createResponse(ResponseMessage.NOT_ACCEPTABLE, ResponseCode.NOT_ACCEPTABLE,
                                                                     "Invalid application token!")
+                """
+                return True, GenericResponseDto.createResponse(ResponseMessage.OK, ResponseCode.OK,
+                                                                "Successfully logged in")
             else:
                 return False, GenericResponseDto.createResponse(ResponseMessage.UNAUTHORIZED, ResponseCode.UNAUTHORIZED,
                                                                 "Password is not correct!")

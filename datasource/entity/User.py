@@ -24,7 +24,7 @@ class User(db.Model):
 
 
     @staticmethod
-    def create(username, pwd, name, surname, type, appId, email, address=None, zip=None, city=None, country=None, mobile=None, image=None):
+    def create(username, pwd, name, surname, type, email, appId=None, address=None, zip=None, city=None, country=None, mobile=None, image=None):
         user = User()
         user.username = username
         user.pwd = pwd

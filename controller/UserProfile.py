@@ -40,6 +40,11 @@ def login():
         login = request.json
         status, response = UserService.login(login)
         return response
+    
+
+@users.route("/", methods=['GET'])
+def getAllUsers():
+    return UserService.getAllUsers()
 
 
 

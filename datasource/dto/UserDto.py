@@ -42,11 +42,6 @@ class UserDto:
             'username': self.username,
             'name': self.name,
             'surname': self.surname,
-            'email': self.email,
-            'address': self.address,
-            'zip': self.zip,
-            'city': self.city,
-            'country': self.country,
-            'mobile': self.mobile,
+            'email': self.email
         }
         return userJson

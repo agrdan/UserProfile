@@ -6,7 +6,8 @@ def loadModel(jsonModel):
     try:
         return json.loads(jsonModel)
     except Exception as e:
-        print(e)
+        #print(e)
+        pass
     return jsonModel
 
 

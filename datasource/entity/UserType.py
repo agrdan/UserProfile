@@ -4,6 +4,7 @@ from enum import Enum
 class UserTypes(Enum):
     ADMIN = 1
     USER = 2
+    SUPERADMIN = 3
 
 
 class UserType(db.Model):
