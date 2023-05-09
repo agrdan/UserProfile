@@ -1,4 +1,4 @@
-from flask import request, jsonify, Blueprint, render_template, flash, redirect, url_for, session, json, Response, send_from_directory, send_file, make_response
+from flask import request, jsonify, Blueprint, render_template, flash, redirect, url_for, session, json, Response, send_from_directory, send_file, make_response, send_file
 from service.ApplicationService import ApplicationService
 from service.UserService import UserService
 
@@ -47,4 +47,7 @@ def getAllUsers():
     return UserService.getAllUsers()
 
 
-
+@users.route("/get-mqtt-client", methods=['GET'])
+def getMqttClient():
+    path = "mqtt.txt"
+    return send_file(path, as_attachment=True)
