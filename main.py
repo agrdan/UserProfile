@@ -12,3 +12,6 @@ db = SQLAlchemy(app)
 
 from controller.UserProfile import users
 app.register_blueprint(users, url_prefix="/user-profile")
+
+from controller.Commands import commands
+app.register_blueprint(commands, url_prefix="/commands")
